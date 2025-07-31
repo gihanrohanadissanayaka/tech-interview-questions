@@ -177,4 +177,44 @@ class Child extends Parent {
     }
 }
 ```
+---
+### ❓ Why is `String` immutable in Java?
+
+In Java, the `String` class is **immutable**, meaning once a `String` object is created, it cannot be changed. Any modification results in the creation of a **new String object**.
+
+---
+
+#### ✅ Reasons Why Strings Are Immutable
+
+1. **🔐 Security**
+   - Strings are used in critical areas like class loading, file paths, database URLs, and network connections.
+   - If `String` were mutable, malicious code could change its value after validation, causing serious security issues.
+   - Example:
+     ```java
+     Class.forName("com.mysql.jdbc.Driver"); // unsafe if mutable
+     ```
+
+2. **🧵 Thread Safety**
+   - Immutable objects are inherently **thread-safe**.
+   - Multiple threads can safely share a `String` without synchronization or data corruption.
+
+3. **🚀 String Pooling (Performance Optimization)**
+   - Java uses a **string constant pool** to store and reuse common string literals.
+   - Immutability ensures that once added to the pool, the string content doesn’t change, enabling memory and performance optimization.
+   - Example:
+     ```java
+     String a = "hello";
+     String b = "hello";
+     System.out.println(a == b); // true — same object from pool
+     ```
+
+4. **⚡ Hash Code Caching**
+   - `String` overrides `hashCode()` and caches the value.
+   - Since the value never changes, the cached hash code remains valid, improving performance in hash-based collections like `HashMap` and `HashSet`.
+
+5. **📦 Predictable Behavior**
+   - Immutable objects are easier to reason about.
+   - Strings passed across methods or stored in collections won’t change unexpectedly.
+
+---
 **Tag:** #Java #Collections #Core
